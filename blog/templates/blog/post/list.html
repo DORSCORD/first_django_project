@@ -5,8 +5,9 @@
 {% block content %}
   <h1 class="border-bottom border-2 pb-2">My Blog</h1>
     {% for post in posts %}
-        <h2><a class="text-decoration-none" href="{{ post.get_absolute_url }}">{{post.title}}</a></h2>
-        <p class="date fst-italic text-secondary">Published {{post.publish}} by {{post.author}}</p>
-        {{post.body|truncatewords:30|linebreaks}}
+        <h2><a class="text-decoration-none" href="{{ post.get_absolute_url }}">{{ post.title }}</a></h2>
+        <p class="date fst-italic text-secondary">Published {{ post.publish }} by {{ post.author }}</p>
+        {{ post.body|truncatewords:30|linebreaks }}
     {% endfor %}
+    {% include "pagination.html" with page=posts %}
 {% endblock content %}
