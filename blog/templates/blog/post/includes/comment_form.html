@@ -1,0 +1,8 @@
+{% load crispy_forms_tags %}
+
+<h2>Додати коментар</h1>
+<form action = "{% url "blog:post_comment" post.id %}" method="post">
+    {{ form|crispy }}
+    {% csrf_token %}
+    <input type="submit" class="btn btn-primary" value="Додати">
+</form>

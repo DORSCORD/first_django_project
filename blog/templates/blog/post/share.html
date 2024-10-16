@@ -1,0 +1,22 @@
+{% extends "blog/base.html" %}
+{% load crispy_forms_tags %}
+
+{% block title %}
+    Поширити пост
+{% endblock %}
+
+{% block content %}
+    {% if sent %}
+    <h1>E-mail було успішно надіслано</h1>
+    <p>
+        "{{ post.title }}" було успішно надіслано {{ form.cleaned_date.to }}.
+    </p>
+    {% else %}
+        <h1>Поширити "{{ post.title }}" електронною поштою</h1>
+        <form method="post">
+            {{ form|crispy }}
+            {% csrf_token %}
+            <input type="submit" class = "btn btn-primary" value="Надіслати e-mail" />
+        </form>
+    {% endif %}
+{% endblock %}
