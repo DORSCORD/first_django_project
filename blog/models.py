@@ -2,6 +2,7 @@ from django.db import models
 from django.utils import timezone
 from django.contrib.auth.models import User
 from django.urls import reverse
+from taggit.managers import TaggableManager
 
 # Create your models here.
 
@@ -33,6 +34,7 @@ class Post(models.Model):
 
     objects = models.Manager()
     published = PublishedManager()
+    tags = TaggableManager()
 
     class Meta:
         ordering = ["-publish"]
@@ -49,9 +51,9 @@ class Post(models.Model):
     
 class Comment(models.Model):
     post = models.ForeignKey(Post, on_delete=models.CASCADE, related_name="comments")
-    name = models.CharField(max_length=80)
+    name = models.CharField(max_length=80, verbose_name="Name")
     email = models.EmailField()
-    body = models.TextField()
+    body = models.TextField(verbose_name="Comment text")
     created = models.DateTimeField(auto_now_add=True)
     updated = models.DateTimeField(auto_now=True)
     active = models.BooleanField(default=True)

@@ -4,11 +4,32 @@
 
 {% block content %}
   <h1 class="border-bottom border-2 pb-2">{{ post.title }}</h1>
-  <p class="date fst-italic text-secondary">
-    Published {{ post.publish }} by {{ post.author }}
+  <p class="date fst-italic text-secondary">Published {{ post.publish }} by {{ post.author }}
   </p>
   {{ post.body|linebreaks }}
   <p>
-    <a href="{% url 'blog.post_share' pots.id %}" Поширити пост>
+    <a href="{% url 'blog:post_share' post.id %}" >Share post</a>
   </p>
+  {% with comments.count as total_comments %}
+    <h2>
+      Comments: {{ total_comments }}
+    </h2>
+  
+  {% endwith %}
+  {% for comment in comments %}
+    <div class="comment border-bottom border-1 mb-2">
+      <p class="info fw-bold">
+        Comments №{{ forloop.counter }} from {{ comment.name }}
+      </p>
+      <div class="ms-5">
+        {{ comment.body|linebreaks }}
+      </div>
+      <p class = "fw-light fst-italic text-end" style="font-size: 0.8rem;">
+        {{ comment.created }}
+      </p>
+    </div>
+  {% empty %}
+    <p>Comments not found</p>
+  {% endfor %}
+  {% include "blog/post/includes/comment_form.html" %}
 {% endblock %}

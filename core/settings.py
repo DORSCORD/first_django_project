@@ -40,6 +40,7 @@ INSTALLED_APPS = [
     'blog',
     "crispy_forms",
     "crispy_bootstrap5",
+    "taggit",
 ]
 
 CRISPY_ALLOWED_TEMPLATE_PACKS = "bootstrap5"
